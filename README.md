@@ -96,7 +96,7 @@ Add to your Claude settings:
 
 ```json
 "mcpServers": {
-  "fetch": {
+  "custom-fetch": {
     "command": "uvx",
     "args": ["burnworks-mcp-server-fetch"]
   }
@@ -109,7 +109,7 @@ Add to your Claude settings:
 
 ```json
 "mcpServers": {
-  "fetch": {
+  "custom-fetch": {
     "command": "python",
     "args": ["-m", "burnworks_mcp_server_fetch"]
   }
@@ -161,7 +161,7 @@ npx @modelcontextprotocol/inspector uv run burnworks-mcp-server-fetch
 ### Extract Just the Main Content Area
 
 ```
-fetch
+custom-fetch
   url: https://example.com/article
   selector: main
   selector_type: element
@@ -170,7 +170,7 @@ fetch
 ### Extract Content by ID
 
 ```
-fetch
+custom-fetch
   url: https://example.com/blog
   selector: article-body
   selector_type: id
@@ -179,7 +179,7 @@ fetch
 ### Extract with Complex CSS Selector
 
 ```
-fetch
+custom-fetch
   url: https://example.com/documentation
   selector: .content-wrapper article > section:first-child
   selector_type: css
