@@ -20,6 +20,14 @@ from mcp.types import (
 from protego import Protego
 from pydantic import BaseModel, Field, AnyUrl
 
+# ↓ Add CSS Selector function ↓
+try:
+    from mcp_server_fetch.server_init import apply_selector_patch
+    SELECTOR_ENABLED = apply_selector_patch()
+except ImportError:
+    SELECTOR_ENABLED = False
+# ↑ Add CSS Selector function ↑
+
 DEFAULT_USER_AGENT_AUTONOMOUS = "ModelContextProtocol/1.0 (Autonomous; +https://github.com/modelcontextprotocol/servers)"
 DEFAULT_USER_AGENT_MANUAL = "ModelContextProtocol/1.0 (User-Specified; +https://github.com/modelcontextprotocol/servers)"
 

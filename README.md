@@ -1,4 +1,4 @@
-# Fetch MCP Server
+# Fetch MCP Server with CSS selectors function
 
 A Model Context Protocol server that provides web content fetching capabilities. This server enables LLMs to retrieve and process content from web pages, converting HTML to markdown for easier consumption.
 
@@ -11,6 +11,8 @@ The fetch tool will truncate the response, but by using the `start_index` argume
     - `max_length` (integer, optional): Maximum number of characters to return (default: 5000)
     - `start_index` (integer, optional): Start content from this character index (default: 0)
     - `raw` (boolean, optional): Get raw content without markdown conversion (default: false)
+    - `selector` (string, optional): CSS selector, ID, or element name to extract specific content
+    - `selector_type` (string, optional): Type of selector: 'css', 'id', or 'element'
 
 ### Prompts
 
@@ -18,6 +20,47 @@ The fetch tool will truncate the response, but by using the `start_index` argume
   - Fetch a URL and extract its contents as markdown
   - Arguments:
     - `url` (string, required): URL to fetch
+    - `selector` (string, optional): CSS selector, ID, or element name to extract specific content
+    - `selector_type` (string, optional): Type of selector: 'css', 'id', or 'element'
+
+## Selector Feature
+
+This enhanced version includes a powerful selector feature that allows you to extract specific content from web pages:
+
+### Types of Selectors
+
+- **ID Selector**: Extract a specific element by its ID attribute
+  ```json
+  {
+    "url": "https://example.com",
+    "selector": "main-content",
+    "selector_type": "id"
+  }
+  ```
+
+- **Element Selector**: Extract the first element of a specific type
+  ```json
+  {
+    "url": "https://example.com",
+    "selector": "main",
+    "selector_type": "element"
+  }
+  ```
+
+- **CSS Selector**: Extract content using CSS selector syntax
+  ```json
+  {
+    "url": "https://example.com",
+    "selector": ".article-content > p",
+    "selector_type": "css"
+  }
+  ```
+
+### Use Cases
+
+- Extract just the main article content from news sites
+- Focus on specific sections of documentation pages
+- Target precisely the content you need from large web pages
 
 ## Installation
 
@@ -26,20 +69,20 @@ Optionally: Install node.js, this will cause the fetch server to use a different
 ### Using uv (recommended)
 
 When using [`uv`](https://docs.astral.sh/uv/) no specific installation is needed. We will
-use [`uvx`](https://docs.astral.sh/uv/guides/tools/) to directly run *mcp-server-fetch*.
+use [`uvx`](https://docs.astral.sh/uv/guides/tools/) to directly run *burnworks-mcp-server-fetch*.
 
 ### Using PIP
 
-Alternatively you can install `mcp-server-fetch` via pip:
+Alternatively you can install `burnworks-mcp-server-fetch` via pip:
 
 ```
-pip install mcp-server-fetch
+pip install burnworks-mcp-server-fetch
 ```
 
 After installation, you can run it as a script using:
 
 ```
-python -m mcp_server_fetch
+python -m burnworks_mcp_server_fetch
 ```
 
 ## Configuration
@@ -55,20 +98,7 @@ Add to your Claude settings:
 "mcpServers": {
   "fetch": {
     "command": "uvx",
-    "args": ["mcp-server-fetch"]
-  }
-}
-```
-</details>
-
-<details>
-<summary>Using docker</summary>
-
-```json
-"mcpServers": {
-  "fetch": {
-    "command": "docker",
-    "args": ["run", "-i", "--rm", "mcp/fetch"]
+    "args": ["burnworks-mcp-server-fetch"]
   }
 }
 ```
@@ -81,7 +111,7 @@ Add to your Claude settings:
 "mcpServers": {
   "fetch": {
     "command": "python",
-    "args": ["-m", "mcp_server_fetch"]
+    "args": ["-m", "burnworks_mcp_server_fetch"]
   }
 }
 ```
@@ -116,25 +146,53 @@ The server can be configured to use a proxy by using the `--proxy-url` argument.
 You can use the MCP inspector to debug the server. For uvx installations:
 
 ```
-npx @modelcontextprotocol/inspector uvx mcp-server-fetch
+npx @modelcontextprotocol/inspector uvx burnworks-mcp-server-fetch
 ```
 
 Or if you've installed the package in a specific directory or are developing on it:
 
 ```
 cd path/to/servers/src/fetch
-npx @modelcontextprotocol/inspector uv run mcp-server-fetch
+npx @modelcontextprotocol/inspector uv run burnworks-mcp-server-fetch
+```
+
+## Example Selector Usage
+
+### Extract Just the Main Content Area
+
+```
+fetch
+  url: https://example.com/article
+  selector: main
+  selector_type: element
+```
+
+### Extract Content by ID
+
+```
+fetch
+  url: https://example.com/blog
+  selector: article-body
+  selector_type: id
+```
+
+### Extract with Complex CSS Selector
+
+```
+fetch
+  url: https://example.com/documentation
+  selector: .content-wrapper article > section:first-child
+  selector_type: css
 ```
 
 ## Contributing
 
-We encourage contributions to help expand and improve mcp-server-fetch. Whether you want to add new tools, enhance existing functionality, or improve documentation, your input is valuable.
+This project, `burnworks_mcp_server_fetch,` was developed as a fork of the original mcp-server-fetch with added CSS selector functionality. The original project can be found at:
 
-For examples of other MCP servers and implementation patterns, see:
 https://github.com/modelcontextprotocol/servers
 
-Pull requests are welcome! Feel free to contribute new ideas, bug fixes, or enhancements to make mcp-server-fetch even more powerful and useful.
+If you'd like to contribute to this enhanced version, feel free to submit issues or pull requests to our repository. For information about the base MCP servers architecture and implementation patterns, please refer to the original project link above.
 
 ## License
 
-mcp-server-fetch is licensed under the MIT License. This means you are free to use, modify, and distribute the software, subject to the terms and conditions of the MIT License. For more details, please see the LICENSE file in the project repository.
+This project is licensed under the MIT License. This means you are free to use, modify, and distribute the software, subject to the terms and conditions of the MIT License. For more details, please see the LICENSE file in the project repository.
