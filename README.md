@@ -16,7 +16,7 @@ The fetch tool will truncate the response, but by using the `start_index` argume
 
 ### Prompts
 
-- **fetch**
+- **custom-fetch**
   - Fetch a URL and extract its contents as markdown
   - Arguments:
     - `url` (string, required): URL to fetch
