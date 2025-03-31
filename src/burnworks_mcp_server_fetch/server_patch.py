@@ -8,7 +8,7 @@ from pydantic import Field
 from mcp.types import ErrorData, INVALID_PARAMS
 from mcp.shared.exceptions import McpError
 
-from mcp_server_fetch.server import (
+from burnworks_mcp_server_fetch.server import (
     extract_content_from_html as original_extract_content_from_html,
     fetch_url as original_fetch_url,
     Fetch,
@@ -16,7 +16,7 @@ from mcp_server_fetch.server import (
 
 # セレクタ機能のインポート
 try:
-    from mcp_server_fetch.selector_extractor import extract_with_selector, validate_selector_params
+    from burnworks_mcp_server_fetch.selector_extractor import extract_with_selector, validate_selector_params
     SELECTOR_SUPPORT = True
     logging.info("Selector support is enabled")
 except ImportError:
