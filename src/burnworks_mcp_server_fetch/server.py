@@ -22,7 +22,7 @@ from pydantic import BaseModel, Field, AnyUrl
 
 # ↓ Add CSS Selector function ↓
 try:
-    from mcp_server_fetch.server_init import apply_selector_patch
+    from burnworks_mcp_server_fetch.server_init import apply_selector_patch
     SELECTOR_ENABLED = apply_selector_patch()
 except ImportError:
     SELECTOR_ENABLED = False
@@ -198,7 +198,7 @@ async def serve(
         ignore_robots_txt: Whether to ignore robots.txt restrictions
         proxy_url: Optional proxy URL to use for requests
     """
-    server = Server("mcp-fetch")
+    server = Server("burnworks-mcp-fetch")
     user_agent_autonomous = custom_user_agent or DEFAULT_USER_AGENT_AUTONOMOUS
     user_agent_manual = custom_user_agent or DEFAULT_USER_AGENT_MANUAL
 
