@@ -10,8 +10,8 @@ def apply_selector_patch():
     # server_patch モジュールをインポート
     try:
         # server.pyの関数をserver_patch内の関数で置き換え
-        import mcp_server_fetch.server as server
-        from mcp_server_fetch.server_patch import (
+        import burnworks_mcp_server_fetch.server as server
+        from burnworks_mcp_server_fetch.server_patch import (
             extract_content_from_html,
             fetch_url,
             validate_fetch_args,
