@@ -1,13 +1,12 @@
 from .server import serve
 
-
 def main():
-    """MCP Fetch Server - HTTP fetching functionality for MCP"""
+    """MCP Fetch Server with CSS selectors - HTTP fetching functionality for MCP"""
     import argparse
     import asyncio
 
     parser = argparse.ArgumentParser(
-        description="give a model the ability to make web requests"
+        description="give a model the ability to make web requests with CSS selector support"
     )
     parser.add_argument("--user-agent", type=str, help="Custom User-Agent string")
     parser.add_argument(
